@@ -168,6 +168,8 @@ start():
             searchByTitle()
         if choice = 2:
             searchByAuthor()
+        else:
+            print "Please enter 0, 1, or 2"
 
 menu():
     Print "0) Exit Search"
@@ -181,13 +183,143 @@ menu():
 clearSearchList():
     searchList.clear()
 
-findWork():
-
+findWork(string enteredTitle):
+    for work in Works:
+        title = getTitle()
+        if string = title:
+            work.start()
+        else:
+            print "Work with title " enteredTitle "wasn't found."
+            print "Try a search to find works or try print all works"
+    FIGURE OUT IF THISLL ACTUALLY BE EFFECTIVE
 searchByTitle():
-
+    NEED TO FINISH
 searchByAuthor():
+    NEED TO FINISH
 ```
 
 # BookShelf
 ```
+Bookshelf():
+    calls loadWorks()
+    calls start()
+    calls saveWorks()
+
+start():
+    boolean keepGoing = true
+    while keepGoing:
+        choice = menu()
+        if choice = 0:
+            print "Exiting Bookshelf menu"
+            keepGoing = false
+        if choice = 1:
+            print "Add work..."
+            addWork()
+        if choice = 2:
+            print "Enter title of work: "
+            take input and put in string titleToMatch
+            search.setSearchList(Works)
+            search.findWork(titleToMatch)
+            search.clearSearchList()
+        if choice = 3:
+            print "Search Menu"
+            search.setSearchList(Works)
+            search.start()
+            search.clearSearchList()
+        if choice = 4:
+            print "All works: "
+            printAll()
+        if choice = 5:
+            print "Printing summary..."
+            printSummary()
+        else:
+            print "Please enter a number 0-5"
+
+menu():
+    print "0) Exit bookshelf menu"
+    print "1) Add a work"
+    print "2) Edit a work"
+    print "3) Search for a work"
+    print "4) Show all works"
+    print "5) Print summary"
+    
+    takes user input into string called userChoice
+    returns userChoice
+
+loadWorks():
+    NEED TO FINISH
+
+saveWorks():
+    NEED TO FINISH
+    
+addWork():
+    print "Enter the following information:"
+    
+    boolean keepGoing = true
+    while keepGoing:
+        print "Type (Enter 0 for book, 1 for fanfic, and 2 for manga): "
+        take user input into string numType
+
+        if numType = 0:
+            create new Book called w
+            keepGoing = false
+        if numType = 1: 
+            create new Fanfic called w
+            keepGoing = false
+        if numType = 2:
+            create new Manga called w
+            keepGoing = false
+        else:
+            print "Please enter 0, 1, or 2"
+
+    print "Title: "
+    take user input as string into title
+    w.setTitle(title)
+    print "Author: "
+    take user input as string into author
+    w.setAuthor(author)
+    print "Genre: "
+    take user input as string into genre
+    w.setGenre(genre)
+    
+    boolean keepGoing = true
+    while keepGoing:
+        print "Rating (-5 to 5, 0 being neutral): "
+        take user input as string rating
+        try casting rating to an integer
+        catch if can't and print "Please enter a number from -5 to 5"
+        
+        if rating is >= -5 and <= 5:
+            w.setRating(rating)
+            keepGoing = false
+        else:
+            "Please enter a number from -5 to 5"
+    
+    print "Date finished..."
+    print "Month (numerical, ie. 1 for January, 2 for February, etc.): "
+    take user input as string into month
+    w.dateFinished.setMonth(month)
+    print "Day: "
+    take user input as string into genre
+    w.dateFinished.setDay(day)
+    print "Year: " 
+    take user input as string into genre
+    w.dateFinished.setYear(year)
+    
+    print "Entered work:"
+    w.printWork()
+
+editWork():
+    print "Enter title of work: "
+    take input and put in string titleToMatch
+    search.setSearchList(Works)
+    search.findWork(titleToMatch)
+    search.clearSearchList()
+    
+printAll():
+    for each work in works:
+        call printWork()
+
+printSummary():
+    NEED TO FINISH
 ``` 
