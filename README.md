@@ -27,11 +27,22 @@ Note():
     content = "No notes"
 ```
 
-# Work (abstract)
+# Work
 ```
 Work():
     pageLength = 0
     wordLength = 0
+
+Work(int):
+    pageLength = 0
+    wordLength = 0
+
+    if int = 0:
+        type = book
+    if int = 1:
+        type = fanfic
+    if int = 2:
+        type = manga
 
 menu():
     Print "0) Exit editing menu"
@@ -111,91 +122,18 @@ start():
             setRating(newRating)
             call printWork for work
 
-    printWork(): abstract
-    convertLength(): abstract
-```
-
-# Book
-```
-printWork():
-    Print "Title: " + Print "Current genre set to: " getGenre()
-    Print "Author: " + getAuthor()
-    Print "Type: " + getType()
-    Print "Date Finished: " +  getDateFinished()
 convertLength():
-    int wordLength = getpagelength() * 300
-    setWordLength(wordLength)
-```
+    if type = 0:
+        int wordLength = getpagelength() * 300
+        setWordLength(wordLength)
 
-# Fanfic
-```
-printWork():
-    Print "Title: " + Print "Current genre set to: " getGenre()
-    Print "Author: " + getAuthor()
-    Print "Type: " + getType()
-    Print "Fandom: " + getFandom()
-    Print "Ship: " + getShip()
-    Print "Date Finished: " +  getDateFinished()
-convertLength():
-    double pageLength = getWordLength() / 300
-    setPageLength(pageLength)
-```
+    if type = 1:
+        double pageLength = getWordLength() / 300
+        setPageLength(pageLength)
 
-# Manga
-```
-printWork():
-    Print "Title: " + Print "Current genre set to: " getGenre()
-    Print "Author: " + getAuthor()
-    Print "Type: " + getType()
-    Print "Date Finished: " +  getDateFinished()
-convertLength():
-    int wordLength = getpagelength() * 100
-    setWordLength(wordLength)
-```
-
-# Search
-```
-Search (ArrayList Works):
-    searchList = Works
-
-start():
-    boolean keepGoing = true
-    while keepGoing:
-        choice = menu()
-        if choice = 0:
-            Print "Exiting search menu"
-        if choice = 1:
-            searchByTitle()
-        if choice = 2:
-            searchByAuthor()
-        else:
-            print "Please enter 0, 1, or 2"
-
-menu():
-    Print "0) Exit Search"
-    Print "1) Search by title"
-    Print "2) search by author"
-
-    Print "Enter number of your choice: "
-    taked input into string userChoice
-    return userChoice    
-
-clearSearchList():
-    searchList.clear()
-
-findWork(string enteredTitle):
-    for work in Works:
-        title = getTitle()
-        if string = title:
-            work.start()
-        else:
-            print "Work with title " enteredTitle "wasn't found."
-            print "Try a search to find works or try print all works"
-    FIGURE OUT IF THISLL ACTUALLY BE EFFECTIVE
-searchByTitle():
-    NEED TO FINISH
-searchByAuthor():
-    NEED TO FINISH
+    if type = 2:
+        int wordLength = getpagelength() * 100
+        setWordLength(wordLength)
 ```
 
 # BookShelf
@@ -222,14 +160,13 @@ start():
             search.findWork(titleToMatch)
             search.clearSearchList()
         if choice = 3:
-            print "Search Menu"
-            search.setSearchList(Works)
-            search.start()
-            search.clearSearchList()
+            searchByTitle()
         if choice = 4:
+            searchByAuthor()
+        if choice = 5:
             print "All works: "
             printAll()
-        if choice = 5:
+        if choice = 6:
             print "Printing summary..."
             printSummary()
         else:
@@ -239,9 +176,10 @@ menu():
     print "0) Exit bookshelf menu"
     print "1) Add a work"
     print "2) Edit a work"
-    print "3) Search for a work"
-    print "4) Show all works"
-    print "5) Print summary"
+    print "3) Search by title"
+    print "4) Search by author"
+    print "5) Show all works"
+    print "6) Print summary"
     
     takes user input into string called userChoice
     returns userChoice
@@ -261,13 +199,13 @@ addWork():
         take user input into string numType
 
         if numType = 0:
-            create new Book called w
+            create new Work(0)
             keepGoing = false
         if numType = 1: 
-            create new Fanfic called w
+            create new Work(1)
             keepGoing = false
         if numType = 2:
-            create new Manga called w
+            create new Work(2)
             keepGoing = false
         else:
             print "Please enter 0, 1, or 2"
@@ -282,6 +220,17 @@ addWork():
     take user input as string into genre
     w.setGenre(genre)
     
+    if type = 1
+        print "Word length: "
+        int length = stringToInt()
+        setWordLength(length)
+        convertLength()
+    else: 
+        print "Page length: "
+        int length = stringToInt()
+        setPageLength(length)
+        convertLength()
+ 
     boolean keepGoing = true
     while keepGoing:
         print "Rating (-5 to 5, 0 being neutral): "
@@ -312,14 +261,33 @@ addWork():
 editWork():
     print "Enter title of work: "
     take input and put in string titleToMatch
-    search.setSearchList(Works)
-    search.findWork(titleToMatch)
-    search.clearSearchList()
+    findWork(titleToMatch)
     
+matchWork():
+    for work in Works:
+        title = getTitle()
+        if string = title:
+            work.start()
+        else:
+            print "Work with title " enteredTitle "wasn't found."
+            print "Try a search to find works or try print all works"
+    FIGURE OUT IF THISLL ACTUALLY BE EFFECTIVE
+
+searchByTitle():
+    NEED TO FINISH
+
+searchByAuthor():
+    NEED TO FINISH
 printAll():
     for each work in works:
         call printWork()
 
 printSummary():
     NEED TO FINISH
+
+stringToInt():
+    take input as string
+    try to convert string to int
+    catch if can't
+    return int
 ``` 
