@@ -20,12 +20,14 @@ public class Work implements HasMenu, Serializable {
 	}// end constructo
 
 	public String menu(){
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
+		System.out.println("0) Exit editing menu");
+		System.out.println("1) Edit title");
+		System.out.println("2) Edit author");
+		System.out.println("3) Edit length");
+		System.out.println("4) Edit genre");
+		System.out.println("5) Edit date finished");
+		System.out.println("6) Add or edit note");
+		System.out.println("7) Add or edit rating");
 		System.out.print("Enter a number 0-6: ");
 		
 		Scanner input = new Scanner(System.in);
@@ -39,20 +41,59 @@ public class Work implements HasMenu, Serializable {
 		boolean keepGoing = true;
 		while(keepGoing){
 			String userChoice = this.menu();
+			Scanner input = new Scanner(System.in);
 			if(userChoice.equals("0")){
-
+				System.out.println("Exiting Work menu...");
+				keepGoing = false;
 			} else if(userChoice.equals("1")){
-
+				System.out.println("Current title: " + this.getTitle());
+				System.out.print("Enter new title: ");
+				String newTitle = input.nextLine();
+				this.setTitle(newTitle);
 			} else if(userChoice.equals("2")){
-
+				System.out.println("Current author: " + this.getAuthor());
+                                System.out.print("Enter new author: ");
+				String newAuthor = input.nextLine();  
+                                this.setAuthor(newAuthor);
 			} else if(userChoice.equals("3")){
-
+				if(type == 1){
+					System.out.println("Current word length: " + this.getWordLength());
+                                        System.out.print("Enter new word length: ");
+					String newWords = input.nextLine();
+                                        this.setWordLength(newWords);
+				} else {
+					System.out.println("Current page length: " + this.getPageLength());
+                                        System.out.print("Enter new page length: ");
+					String newPages = input.nextLine();
+                                        this.setPageLength(newPages);
 			} else if(userChoice.equals("4")){
-
+				System.out.println("Current genre: " + this.getGenre());
+                                System.out.print("Enter new genre: ");
+				String newGenre = input.nextLine();
+                                this.setGenre(newGenre);
 			} else if(userChoice.equals("5")){
+				System.out.println("Current date finished: " + this.dateFinished.toString());
+				System.out.print("Enter the following information as their numeric values: ");
+				System.out.print("Enter new year: ");
+				int year = getInt();
+				System.out.print("Enter new month: ");
+				int month = getInt();
+				System.out.print("Enter new day: ");
+				int day = getInt();
+				// maybe change to something so that that date doesnt reset unless all 3 values are valid integers
+				this.dateFinished.set(year, month, date);
 
 			} else if(userChoice.equals("6")){
-
+				System.out.println("Current note: " + note.getContent());
+				System.out.print("Enter new note: ");
+				String newNote = input.nextLine();
+				this.note.setContent(newNote);
+			} else if(userChoice.equals("7")){
+				System.out.println("Current rating: " + this.getRating());
+                                System.out.print("Enter new rating (-5 to 5): ");
+                                String newRating = input.nextLine();
+                                this.setRating(newRating);
+				// do i want to add a safeguard to check if int between -5 and 5????
 			} else {
 				System.out.println("Not a valid input. Please enter 0-7.");
 			}// end if else
@@ -149,6 +190,31 @@ public class Work implements HasMenu, Serializable {
 	public String getGenre(){
 		return this.genre;
 	}// end getter
+	
+	public int getInt(){
+		Scanner input = new Scanner(System.in);
+		String value = input.nextLine();
+		
+		int intVal = 0;
+		try{
+			intVal = Integer.parseInt(value);
+		}catch(NumberFormatException e){
+			System.out.println("Please input a number.");
+		}// end try
+		return intVal;
+	}// end getInt
+	
+	private double getDouble(){
+		Scanner input = new Scanner(System.in);
+		String amount = input.nextLine();
 
+		double doubleAmount = 0d;
+		try{
+			doubleAmount = Double.parseDouble(amount);
+		}catch(NumberFormatException e){
+			System.out.println("Please input a number.");
+		}// end try
+		return doubleAmount;
+	}// end get double
 }// end work
 
