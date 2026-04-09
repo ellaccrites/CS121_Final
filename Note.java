@@ -1,4 +1,5 @@
-impot java.util.*;
+import java.util.*;
+import java.io.*;
 
 public class Note implements Serializable {
 	String content;
@@ -15,7 +16,7 @@ public class Note implements Serializable {
 		this.content = content;
 	}// end setter
 	
-	public void getContent(){
+	public String getContent(){
 		return this.content;
 	}// end getter
 }// end class

@@ -2,7 +2,18 @@ import java.util.*;
 import java.io.*;
 
 public class Work implements HasMenu, Serializable {
-	
+	String title;
+	String author;
+	int wordLength;
+	double pageLength;
+	int type;
+	String genre;
+	String fandom;
+	String ship;
+	Calendar dateFinished;
+	Note note;
+	String rating;
+
 	public static void main(String[] args){
 		Work w = new Work();
 		w.start();
@@ -59,13 +70,15 @@ public class Work implements HasMenu, Serializable {
 				if(type == 1){
 					System.out.println("Current word length: " + this.getWordLength());
                                         System.out.print("Enter new word length: ");
-					String newWords = input.nextLine();
-                                        this.setWordLength(newWords);
+                                        int intWords = getInt();
+					this.setWordLength(intWords);
 				} else {
 					System.out.println("Current page length: " + this.getPageLength());
                                         System.out.print("Enter new page length: ");
-					String newPages = input.nextLine();
-                                        this.setPageLength(newPages);
+                                        double dPages = getDouble();
+					this.setPageLength(dPages);
+				}// end if else
+				this.convertLength();
 			} else if(userChoice.equals("4")){
 				System.out.println("Current genre: " + this.getGenre());
                                 System.out.print("Enter new genre: ");
@@ -81,7 +94,7 @@ public class Work implements HasMenu, Serializable {
 				System.out.print("Enter new day: ");
 				int day = getInt();
 				// maybe change to something so that that date doesnt reset unless all 3 values are valid integers
-				this.dateFinished.set(year, month, date);
+				this.dateFinished.set(year, month, day);
 
 			} else if(userChoice.equals("6")){
 				System.out.println("Current note: " + note.getContent());
@@ -106,7 +119,18 @@ public class Work implements HasMenu, Serializable {
 	}// end printWork
 	
 	public void convertLength(){
-	
+		double newWords = 0d;
+		if(this.type == 0){
+			newWords = 300 * getPageLength();
+			int intWords = (int) newWords;
+			setWordLength(intWords);
+		} else if(this.type == 1){
+			setPageLength(this.wordLength / 300);
+		} else if(this.type == 2){
+			newWords  = 300 * this.pageLength;
+			int intWords = (int) newWords;
+			setWordLength(intWords);
+		}// end if else
 	}// end convertLength
 	
 	public void addNote(){
@@ -151,7 +175,7 @@ public class Work implements HasMenu, Serializable {
 	}// end setter
 	
 	public double getPageLength(){
-		return pagelength;
+		return pageLength;
 	}// end getter
 	
 	public void setType(int type){
@@ -163,7 +187,7 @@ public class Work implements HasMenu, Serializable {
 	}// end getter
 	
 	public String getStringType(){
-		String sType;
+		String sType = "";
 		if(this.type == 0){
 			sType = "Book";
 		} else if(this.type == 1){
@@ -204,7 +228,7 @@ public class Work implements HasMenu, Serializable {
 		return intVal;
 	}// end getInt
 	
-	private double getDouble(){
+	public double getDouble(){
 		Scanner input = new Scanner(System.in);
 		String amount = input.nextLine();
 
@@ -216,5 +240,6 @@ public class Work implements HasMenu, Serializable {
 		}// end try
 		return doubleAmount;
 	}// end get double
+	
 }// end work
 
