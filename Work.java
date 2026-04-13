@@ -28,7 +28,7 @@ public class Work implements HasMenu, Serializable {
 		wordLength = 0;
                 pageLength = 0;
 		this.type = type;
-	}// end constructo
+	}// end constructor
 
 	public String menu(){
 		System.out.println("0) Exit editing menu");
@@ -39,8 +39,9 @@ public class Work implements HasMenu, Serializable {
 		System.out.println("5) Edit date finished");
 		System.out.println("6) Add or edit note");
 		System.out.println("7) Add or edit rating");
-		System.out.print("Enter a number 0-6: ");
-		
+		System.out.println("8) Edit fandom");
+		System.out.println("9) Edit ship");
+		System.out.print("Enter a number 0-9: ");
 		Scanner input = new Scanner(System.in);
 		String userChoice = input.nextLine();
 
@@ -107,15 +108,36 @@ public class Work implements HasMenu, Serializable {
                                 String newRating = input.nextLine();
                                 this.setRating(newRating);
 				// do i want to add a safeguard to check if int between -5 and 5????
-			} else {
-				System.out.println("Not a valid input. Please enter 0-7.");
+			} else if(userChoice.equals("8")){
+				System.out.println("Current fandom: " + this.getFandom());
+                                System.out.print("Enter new fandom: ");
+                                String newFandom = input.nextLine();
+                                this.setFandom(newFandom);
+			} else if(userChoice.equals("9")){
+				System.out.println("Current ship: " + this.getShip());
+                                System.out.print("Enter new ship: ");
+                                String newGenre = input.nextLine();
+                                this.setGenre(newGenre);
+			} else{
+				System.out.println("Not a valid input. Please enter 0-9.");
 			}// end if else
 			System.out.println();
 		}// end while
 	}// end start
 	
 	public void printWork(){
-
+		System.out.println("Title: " + this.getTitle());
+		System.out.println("Author: " + this.getAuthor());
+		System.out.println("Word Length: " + this.getWordLength());
+		System.out.println("Page Length: " + this.getPageLength());
+		System.out.println("Type: " + this.getStringType());
+		System.out.println("Genre: " + this.getGenre());
+		System.out.println("Fandom: " + this.getFandom());
+		System.out.println("Ship: " + this.getShip());
+		System.out.println("Date Finished: " + this.dateFinished.toString());
+		System.out.println("Notes: " + this.note.getContent());
+		System.out.println("Rating: " + this.getRating());
+		System.out.println();
 	}// end printWork
 	
 	public void convertLength(){
@@ -213,6 +235,22 @@ public class Work implements HasMenu, Serializable {
 	
 	public String getGenre(){
 		return this.genre;
+	}// end getter
+	
+	public void setFandom(String fandom){
+		this.fandom = fandom;
+	}// end setter
+	
+	public String getFandom(){
+		return this.fandom;
+	}// end getter
+	
+	public void setShip(String ship){
+		this.ship = ship;
+	}// end setter
+	
+	public String getShip(){
+		return this.ship;
 	}// end getter
 	
 	public int getInt(){
