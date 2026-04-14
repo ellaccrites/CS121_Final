@@ -134,28 +134,56 @@ class Bookshelf implements HasMenu, Serializable {
 		works.add(w);
 	}// end addWork
 	
-	public void updateWork(Work work){
-		// NEED FINISH
-	}// end updateWork
-	
 	public void printAll(){
-		// NEED FINISH
+		for(Work work: works){
+			work.printWork();
+		}// end for
 	}// end printAll
 	
 	public void printSummary(){
 		// NEED FINISH
 	}// end printSummary
 	
-	public void findWork(){
-		// NEED FINISH
+	public void updateWork(){
+		Scanner input = new Scanner(System.in);
+                System.out.println("Enter title of work to be edited: ");
+                String toMatch = input.nextLine();
+                for(Work work: works){
+                        String workTitle = work.getTitle();
+                        if(workTitle.equals(toMatch)){
+                                System.out.println("Found work. Entering work menu...");
+				work.start();
+			} else{
+				System.out.println("No watch found. You can search for a work in the Bookshelf menu.");
+                        }// end if
+                }// end for
+                System.out.println("To change work information, chose edit work in Bookshelf menu.");
 	}// end findWork()
 	
 	public void searchByTitle(){
-		// NEED FINISH
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter title: ");
+		String toMatch = input.nextLine();
+		for(Work work: works){
+			String workTitle = work.getTitle();
+			if(workTitle.contains(toMatch)){
+				work.printWork();
+			}// end if
+		}// end for
+		System.out.println("To change work information, chose edit work in the Bookshelf menu.");
 	}// end searchByTitle
 	
 	public void searchByAuthor(){
-		// NEED FINISH
+		Scanner input = new Scanner(System.in);
+                System.out.println("Enter author name: ");
+                String toMatch = input.nextLine();
+                for(Work work: works){
+                        String workAuthor = work.getAuthor();
+                        if(workAuthor.contains(toMatch)){
+                                work.printWork();
+                        }// end if
+                }// end for
+                System.out.println("To change work information, chose edit work in Bookshelf menu.");
 	}// end searchByAuthor
 	
 	//FIGURE OUT HOW TO DEAL WITH THE TWO OF THE SAME FUNCTION 
