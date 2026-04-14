@@ -20,6 +20,8 @@ public class Work implements HasMenu, Serializable {
 	}// end main
 	
 	public Work(){
+		this.dateFinished = new Calender;
+		this.note = new Note;
 		wordLength = 0;
 		pageLength = 0;
 	}// end no param constructor
@@ -28,6 +30,8 @@ public class Work implements HasMenu, Serializable {
 		wordLength = 0;
                 pageLength = 0;
 		this.type = type;
+		this.dateFinished = new Calender;
+                this.note = new Note;
 	}// end constructor
 
 	public String menu(){
