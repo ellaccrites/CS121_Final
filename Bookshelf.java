@@ -141,7 +141,8 @@ class Bookshelf implements HasMenu, Serializable {
 	}// end printAll
 	
 	public void printSummary(){
-		// NEED FINISH
+		for(Work work: works){
+		}// end for
 	}// end printSummary
 	
 	public void updateWork(){
