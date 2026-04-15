@@ -4,14 +4,14 @@ import java.io.*;
 class Bookshelf implements HasMenu, Serializable {
 	WorkList works = new WorkList();
 
-	public statuc void main(String[] args){
+	public static void main(String[] args){
 		Bookshelf b = new Bookshelf();
 		b.start();
 	}// end main
 	
 	public Bookshelf(){
 		this.loadSampleWorks();
-		this.saveCustomers();
+		this.saveWorks();
 
 		this.loadWorks();
 		this.start();
@@ -19,24 +19,26 @@ class Bookshelf implements HasMenu, Serializable {
 	}// end no param constructor
 	
 	public String menu(){
+		String userChoice = "null";
 		// NEED FINISH
+		return userChoice;
 	}// end menu
 	
-	public String start(){
+	public void start(){
 		// NEED FINISH
 	}// end start
 	
 	public void loadSampleWorks(){
-		works.add(new Work("0"));
-		works.add(new Work("1"));
-		works.add(new Work("2"));
+		works.add(new Work(0));
+		works.add(new Work(1));
+		works.add(new Work(2));
 	}// end loadSampleCustomers
 	
 	public void loadWorks(){
 		try {
 			FileInputStream fi = new FileInputStream("Works.dat");
 			ObjectInputStream obIn = new ObjectInputStream(fi);
-			works = (WorksList)obIn.readObject();
+			works = (WorkList)obIn.readObject();
 
 			obIn.close();
 			fi.close();
@@ -62,22 +64,23 @@ class Bookshelf implements HasMenu, Serializable {
 	public void addWork(){
 		Scanner input = new Scanner(System.in);
                 System.out.println("Please enter the following information: ");
+		Work w = new Work();
 		
 		boolean keepGoing = true;
 		while(keepGoing){
 			System.out.println("Type: ");
-			type = getInt();
+			int type = getInt();
 			if(type == 0){
-				Work w = new Work(0);
+				w.setType(0);
 				keepGoing = false;
 			} else if(type == 1){
-				Work w = new Work(1);
+				w.setType(1);
 				keepGoing = false;
 			} else if(type == 2){
-				Work w = new Work(2);
+				w.setType(2);
 				keepGoing = false;
 			} else{
-				System.out.prinln("Please enter 0, 1, or 2");
+				System.out.println("Please enter 0, 1, or 2");
 			}// end if else	
 		}// end while
 // might need to add work onto list first to take it out of small scope? if have issues
@@ -88,7 +91,7 @@ class Bookshelf implements HasMenu, Serializable {
 		String author = input.nextLine();
 		w.setAuthor(author);
 
-		if(type == 1){
+		if(w.type == 1){
 			System.out.println("Word Length: ");
 			int wordlength = getInt();
 			w.setWordLength(wordlength);
@@ -98,10 +101,10 @@ class Bookshelf implements HasMenu, Serializable {
                 	String ship  = input.nextLine();
 		} else{
 			System.out.println("Page Length: ");
-			double pagelength = getDouble();
+			double pageLength = getDouble();
 			w.setPageLength(pageLength);
 		}// end if else
-		w.convertLength
+		w.convertLength();
 		
 		System.out.println("Genre: ");
 		String genre = input.nextLine();
@@ -119,7 +122,7 @@ class Bookshelf implements HasMenu, Serializable {
 		System.out.print("     Day: ");
 		int day = getInt();
 		try{
-			this.dateFinished.set(year, month, day);
+			w.dateFinished.set(year, month, day);
 		} catch(Exception e){
 			System.out.println("Not valid inputs. Date set to 0/00/0000. You can edit date finished in the work menu.");
 		}// end try catch
@@ -190,30 +193,31 @@ class Bookshelf implements HasMenu, Serializable {
 	//FIGURE OUT HOW TO DEAL WITH THE TWO OF THE SAME FUNCTION 
 	public int getInt(){
 		boolean keepGoing = true;
+		int intVal = 0;
 		while(keepGoing){
 			Scanner input = new Scanner(System.in);
 			String value = input.nextLine();
-			int intVal;
-
+			boolean match = false;
 			try{
 				intVal = Integer.parseInt(value);
-				return intVal;
+				match = true;
 			}catch(NumberFormatException e){
 				System.out.println("Please input a numeric answer: ");
 			}// end try
-			if(intVal != 0){
+			if(match){
 				keepGoing = false;
 			}// end if
 		}// end while
+		return intVal;
 	}// end getInt
 	
 	public double getDouble(){
 		boolean keepGoing = true;
+		double doubleAmount = 0d;
 		while(keepGoing){
 			Scanner input = new Scanner(System.in);
 			String amount = input.nextLine();
 
-			double doubleAmount = 0d;
 			try{
 				doubleAmount = Double.parseDouble(amount);
 			}catch(NumberFormatException e){
