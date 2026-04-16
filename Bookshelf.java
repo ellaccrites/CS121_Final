@@ -19,19 +19,57 @@ class Bookshelf implements HasMenu, Serializable {
 	}// end no param constructor
 	
 	public String menu(){
-		String userChoice = "null";
-		// NEED FINISH
+		System.out.println("-- Bookshelf Menu --");
+		System.out.println("0) Exit Bookshelf Menu");
+		System.out.println("1) Print all works");
+		System.out.println("2) Get a summary");
+		System.out.println("3) Add a work");
+		System.out.println("4) Edit a work");
+		System.out.println("5) Search by title");
+		System.out.println("6) Search by author name");
+		System.out.print("Choose 0-6");
+
+		Scanner input = new Scanner(System.in);
+		String userChoice = input.nextLine();
+		System.out.println();
 		return userChoice;
 	}// end menu
 	
 	public void start(){
-		// NEED FINISH
+		boolean keepGoing = true;
+		while(keepGoing){
+			String userChoice = menu();
+			if(userChoice.equals("0")){
+				System.out.println("Exiting Bookshelf Menu...");
+				keepGoing = false;
+			} else if(userChoice.equals("1")){
+				System.out.println("-- List of all Works --");
+				this.printAll();
+			} else if(userChoice.equals("2")){
+				System.out.println("-- Work Summary --");
+				this.printSummary();
+			} else if(userChoice.equals("3")){
+				System.out.println("-- Adding Work --");
+				this.addWork();
+			} else if(userChoice.equals("4")){
+				this.updateWork();
+			} else if(userChoice.equals("5")){
+				System.out.println("-- Search Menu --");
+				this.searchByTitle();
+			} else if(userChoice.equals("6")){
+				System.out.println("-- Search Menu --");
+				this.searchByAuthor();
+			} else{
+				System.out.println("Please enter a number 0-6.");
+			}// end if else
+			System.out.println();
+		}// end while
 	}// end start
 	
 	public void loadSampleWorks(){
-		works.add(new Work(0));
-		works.add(new Work(1));
-		works.add(new Work(2));
+		works.add(new Work(0, "Alice in Wonderland", "Lewis Carroll"));
+		works.add(new Work(1, "Crimson Rivers", "bizarestars"));
+		works.add(new Work(2, "The Apothecary Diaries", "Natsu Hyuga"));
 	}// end loadSampleCustomers
 	
 	public void loadWorks(){
@@ -64,54 +102,51 @@ class Bookshelf implements HasMenu, Serializable {
 	public void addWork(){
 		Scanner input = new Scanner(System.in);
                 System.out.println("Please enter the following information: ");
-		Work w = new Work();
 		
 		boolean keepGoing = true;
+		int type = 0;
 		while(keepGoing){
-			System.out.println("Type: ");
-			int type = getInt();
-			if(type == 0){
-				w.setType(0);
-				keepGoing = false;
-			} else if(type == 1){
-				w.setType(1);
-				keepGoing = false;
-			} else if(type == 2){
-				w.setType(2);
-				keepGoing = false;
-			} else{
+			int testType = getInt();
+			if(testType == 0){
+				type = 0;
+			} else if(testType == 1){
+				type = 1;
+			} else if(testType == 2){
+				type = 2;
+			} else {
 				System.out.println("Please enter 0, 1, or 2");
-			}// end if else	
+			}// end if else
 		}// end while
-// might need to add work onto list first to take it out of small scope? if have issues
+
 		System.out.println("Title: ");
 		String title = input.nextLine();
-		w.setTitle(title);
 		System.out.println("Author: ");
 		String author = input.nextLine();
-		w.setAuthor(author);
+		
+		Work w = new Work(type, title, author);
 
-		if(w.type == 1){
+		if(w.getType() == 1){
 			System.out.println("Word Length: ");
 			int wordlength = getInt();
 			w.setWordLength(wordlength);
 			System.out.println("Fandom: ");
                 	String fandom  = input.nextLine();
+			w.setFandom(fandom);
                 	System.out.println("Ship: ");
                 	String ship  = input.nextLine();
+			w.setShip(ship);
 		} else{
 			System.out.println("Page Length: ");
 			double pageLength = getDouble();
 			w.setPageLength(pageLength);
+			w.setFandom("n/a");
+			w.setShip("n/a");
 		}// end if else
 		w.convertLength();
 		
 		System.out.println("Genre: ");
 		String genre = input.nextLine();
-		System.out.println("Fandom: ");
-		String fandom  = input.nextLine();
-		System.out.println("Ship: ");
-		String ship  = input.nextLine();
+		w.setGenre(genre);
 		
 		System.out.println("Date Finished: ");
 		System.out.print("Enter the following information as their numeric values: ");
@@ -144,8 +179,35 @@ class Bookshelf implements HasMenu, Serializable {
 	}// end printAll
 	
 	public void printSummary(){
+		// first: number of works
+		// number of works in each type
+		// total words/pages
+		// maybe more stuff, but let's start here
+		int numWorks = works.size();
+		int numWords = 0;
+		double numPages = 0d;
+		int numBooks = 0;
+		int numFics = 0;
+		int numManga = 0;
+
 		for(Work work: works){
+			numWords += work.getWordLength();
+			numPages += work.getPageLength();
+			if(work.getType() == 0){
+				numBooks += 1;
+			} else if(work.getType() == 1){
+				numFics += 1;
+			} else if(work.getType() == 2){
+				numManga += 1;
+			}// end if else
 		}// end for
+		
+		System.out.println("Total number of works in Bookshelf: " + numWorks);
+		System.out.println("       Books: " + numBooks);
+		System.out.println("       Fanfics: " + numFics);
+		System.out.println("       Mangas: " + numManga);
+		System.out.println("Total word count: " + numWords);
+		System.out.println("Total page count: " + numPages); // need to check to force to 2 decimal places
 	}// end printSummary
 	
 	public void updateWork(){
@@ -162,7 +224,7 @@ class Bookshelf implements HasMenu, Serializable {
                         }// end if
                 }// end for
                 System.out.println("To change work information, chose edit work in Bookshelf menu.");
-	}// end findWork()
+	}// end updateWork
 	
 	public void searchByTitle(){
 		Scanner input = new Scanner(System.in);

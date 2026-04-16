@@ -23,14 +23,16 @@ public class Work implements HasMenu, Serializable {
 		this.dateFinished = Calendar.getInstance();
 		this.dateFinished.set(0, 0, 0);
 		this.note = new Note();
-		wordLength = 0;
-		pageLength = 0;
+		this.wordLength = 0;
+		this.pageLength = 0;
 	}// end no param constructor
 	
-	public Work(int type){
-		wordLength = 0;
-                pageLength = 0;
+	public Work(int type, String title, String author){
+		this.wordLength = 0;
+                this.pageLength = 0;
 		this.type = type;
+		this.title = title;
+		this.author = author;
 		this.dateFinished = Calendar.getInstance();
 		this.dateFinished.set(0, 0, 0);
                 this.note = new Note();
