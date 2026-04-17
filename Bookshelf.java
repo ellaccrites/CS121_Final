@@ -27,7 +27,7 @@ class Bookshelf implements HasMenu, Serializable {
 		System.out.println("4) Edit a work");
 		System.out.println("5) Search by title");
 		System.out.println("6) Search by author name");
-		System.out.print("Choose 0-6");
+		System.out.print("Choose 0-6: ");
 
 		Scanner input = new Scanner(System.in);
 		String userChoice = input.nextLine();
@@ -102,17 +102,20 @@ class Bookshelf implements HasMenu, Serializable {
 	public void addWork(){
 		Scanner input = new Scanner(System.in);
                 System.out.println("Please enter the following information: ");
-		
+		System.out.println("Work type (0 for Book, 1 for Fanfic, 2 for Manga): ");
 		boolean keepGoing = true;
 		int type = 0;
 		while(keepGoing){
 			int testType = getInt();
 			if(testType == 0){
 				type = 0;
+				keepGoing = false;
 			} else if(testType == 1){
 				type = 1;
+				keepGoing = false;
 			} else if(testType == 2){
 				type = 2;
+				keepGoing = false;
 			} else {
 				System.out.println("Please enter 0, 1, or 2");
 			}// end if else
@@ -214,22 +217,26 @@ class Bookshelf implements HasMenu, Serializable {
 		Scanner input = new Scanner(System.in);
                 System.out.println("Enter title of work to be edited: ");
                 String toMatch = input.nextLine();
+		boolean match = false;
                 for(Work work: works){
                         String workTitle = work.getTitle();
                         if(workTitle.equals(toMatch)){
                                 System.out.println("Found work. Entering work menu...");
+				match = true;
 				work.start();
-			} else{
-				System.out.println("No watch found. You can search for a work in the Bookshelf menu.");
                         }// end if
                 }// end for
-                System.out.println("To change work information, chose edit work in Bookshelf menu.");
+                if(match == false){
+			System.out.println("No match found. You can find a list of all works in the Bookshelf menu.");
+		}// end if
+		System.out.println("To change work information, chose edit work in Bookshelf menu.");
 	}// end updateWork
 	
 	public void searchByTitle(){
 		Scanner input = new Scanner(System.in);
 		System.out.println("Enter title: ");
 		String toMatch = input.nextLine();
+		System.out.println("Showing matching works...");
 		for(Work work: works){
 			String workTitle = work.getTitle();
 			if(workTitle.contains(toMatch)){
@@ -243,6 +250,7 @@ class Bookshelf implements HasMenu, Serializable {
 		Scanner input = new Scanner(System.in);
                 System.out.println("Enter author name: ");
                 String toMatch = input.nextLine();
+		ystem.out.println("Showing matching works...");
                 for(Work work: works){
                         String workAuthor = work.getAuthor();
                         if(workAuthor.contains(toMatch)){

@@ -70,32 +70,37 @@ public class Work implements HasMenu, Serializable {
 				System.out.print("Enter new title: ");
 				String newTitle = input.nextLine();
 				this.setTitle(newTitle);
+				System.out.println("Title changed to: " + newTitle);
 			} else if(userChoice.equals("2")){
 				System.out.println("Current author: " + this.getAuthor());
                                 System.out.print("Enter new author: ");
-				String newAuthor = input.nextLine();  
+				String newAuthor = input.nextLine();
                                 this.setAuthor(newAuthor);
+				System.out.println("Author changed to: " + newAuthor);
 			} else if(userChoice.equals("3")){
 				if(type == 1){
 					System.out.println("Current word length: " + this.getWordLength());
                                         System.out.print("Enter new word length: ");
                                         int intWords = getInt();
 					this.setWordLength(intWords);
+					System.out.println("Word length changed to: " + intWords);
 				} else {
 					System.out.println("Current page length: " + this.getPageLength());
                                         System.out.print("Enter new page length: ");
                                         double dPages = getDouble();
 					this.setPageLength(dPages);
+					System.out.println("Page length changed to: " + dpages);
 				}// end if else
 				this.convertLength();
 			} else if(userChoice.equals("4")){
 				System.out.println("Current genre: " + this.getGenre());
                                 System.out.print("Enter new genre: ");
 				String newGenre = input.nextLine();
+				System.out.println("Genre changed to: " + newGenre);
                                 this.setGenre(newGenre);
 			} else if(userChoice.equals("5")){
 				System.out.println("Current date finished: " + this.dateFinished.toString());
-				System.out.print("Enter the following information as their numeric values: ");
+				System.out.println("Enter the following information as their numeric values.");
 				System.out.print("Enter new year: ");
 				int year = getInt();
 				System.out.print("Enter new month: ");
@@ -110,10 +115,12 @@ public class Work implements HasMenu, Serializable {
 				System.out.print("Enter new note: ");
 				String newNote = input.nextLine();
 				this.note.setContent(newNote);
+				System.out.println("Note added...");
 			} else if(userChoice.equals("7")){
 				System.out.println("Current rating: " + this.getRating());
                                 System.out.print("Enter new rating (-5 to 5): ");
                                 String newRating = input.nextLine();
+				System.out.println("Rating changed to: " + newRating);
                                 this.setRating(newRating);
 				// do i want to add a safeguard to check if int between -5 and 5????
 			} else if(userChoice.equals("8")){
@@ -121,11 +128,13 @@ public class Work implements HasMenu, Serializable {
                                 System.out.print("Enter new fandom: ");
                                 String newFandom = input.nextLine();
                                 this.setFandom(newFandom);
+				System.out.println("Fandom changed to: " + newFandom);
 			} else if(userChoice.equals("9")){
 				System.out.println("Current ship: " + this.getShip());
                                 System.out.print("Enter new ship: ");
                                 String newGenre = input.nextLine();
                                 this.setGenre(newGenre);
+				System.out.println("Ship changed to: " + newShip);
 			} else{
 				System.out.println("Not a valid input. Please enter 0-9.");
 			}// end if else
