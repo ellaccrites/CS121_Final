@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.text.*;
 
 public class Work implements HasMenu, Serializable {
 	String title;
@@ -10,7 +11,8 @@ public class Work implements HasMenu, Serializable {
 	String genre;
 	String fandom;
 	String ship;
-	Calendar dateFinished;
+	Date dateFinished;
+	DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 	Note note;
 	String rating;
 
@@ -20,7 +22,7 @@ public class Work implements HasMenu, Serializable {
 	}// end main
 	
 	public Work(){
-		this.dateFinished = Calendar.getInstance();
+		this.dateFinished = Calender.getInstance().getTime();
 		this.dateFinished.set(0, 0, 0);
 		this.note = new Note();
 		this.wordLength = 0;
@@ -33,7 +35,7 @@ public class Work implements HasMenu, Serializable {
 		this.type = type;
 		this.title = title;
 		this.author = author;
-		this.dateFinished = Calendar.getInstance();
+		this.dateFinished = Calendar.getInstance().getTime();
 		this.dateFinished.set(0, 0, 0);
                 this.note = new Note();
 	}// end constructor
@@ -89,7 +91,7 @@ public class Work implements HasMenu, Serializable {
                                         System.out.print("Enter new page length: ");
                                         double dPages = getDouble();
 					this.setPageLength(dPages);
-					System.out.println("Page length changed to: " + dpages);
+					System.out.println("Page length changed to: " + dPages);
 				}// end if else
 				this.convertLength();
 			} else if(userChoice.equals("4")){
@@ -134,7 +136,7 @@ public class Work implements HasMenu, Serializable {
                                 System.out.print("Enter new ship: ");
                                 String newGenre = input.nextLine();
                                 this.setGenre(newGenre);
-				System.out.println("Ship changed to: " + newShip);
+				System.out.println("Ship changed to: " + newGenre);
 			} else{
 				System.out.println("Not a valid input. Please enter 0-9.");
 			}// end if else
@@ -151,7 +153,8 @@ public class Work implements HasMenu, Serializable {
 		System.out.println("Genre: " + this.getGenre());
 		System.out.println("Fandom: " + this.getFandom());
 		System.out.println("Ship: " + this.getShip());
-		System.out.println("Date Finished: " + this.dateFinished.toString());
+		String dateAsString = this.df.format(this.dateFinished);
+		System.out.println("Date Finished: " + dateAsString);
 		System.out.println("Notes: " + this.note.getContent());
 		System.out.println("Rating: " + this.getRating());
 		System.out.println();
