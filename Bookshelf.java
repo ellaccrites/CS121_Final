@@ -6,7 +6,6 @@ class Bookshelf implements HasMenu, Serializable {
 
 	public static void main(String[] args){
 		Bookshelf b = new Bookshelf();
-		b.start();
 	}// end main
 	
 	public Bookshelf(){
@@ -19,6 +18,7 @@ class Bookshelf implements HasMenu, Serializable {
 	}// end no param constructor
 	
 	public String menu(){
+		System.out.println();
 		System.out.println("-- Bookshelf Menu --");
 		System.out.println("0) Exit Bookshelf Menu");
 		System.out.println("1) Print all works");
@@ -32,6 +32,7 @@ class Bookshelf implements HasMenu, Serializable {
 		Scanner input = new Scanner(System.in);
 		String userChoice = input.nextLine();
 		System.out.println();
+		
 		return userChoice;
 	}// end menu
 	
@@ -40,8 +41,8 @@ class Bookshelf implements HasMenu, Serializable {
 		while(keepGoing){
 			String userChoice = menu();
 			if(userChoice.equals("0")){
-				System.out.println("Exiting Bookshelf Menu...");
 				keepGoing = false;
+				System.out.println("Exiting Bookshelf Menu...");
 			} else if(userChoice.equals("1")){
 				System.out.println("-- List of all Works --");
 				this.printAll();
@@ -151,8 +152,8 @@ class Bookshelf implements HasMenu, Serializable {
 		String genre = input.nextLine();
 		w.setGenre(genre);
 		
-		System.out.print("Date Finished: ");
-		System.out.print("Enter the following information as their numeric values: ");
+		System.out.println("Date Finished-- ");
+		System.out.println("Enter the following information as their numeric values. ");
 		System.out.print("     Year: ");
 		int year = getInt();
 		System.out.print("     Month: ");	
@@ -215,13 +216,14 @@ class Bookshelf implements HasMenu, Serializable {
 	
 	public void updateWork(){
 		Scanner input = new Scanner(System.in);
-                System.out.println("Enter title of work to be edited: ");
+                System.out.print("Enter title of work to be edited: ");
                 String toMatch = input.nextLine();
 		boolean match = false;
                 for(Work work: works){
                         String workTitle = work.getTitle();
                         if(workTitle.equals(toMatch)){
                                 System.out.println("Found work. Entering work menu...");
+				System.out.println();
 				match = true;
 				work.start();
                         }// end if
@@ -234,9 +236,10 @@ class Bookshelf implements HasMenu, Serializable {
 	
 	public void searchByTitle(){
 		Scanner input = new Scanner(System.in);
-		System.out.println("Enter title: ");
+		System.out.print("Enter title: ");
 		String toMatch = input.nextLine();
 		System.out.println("Showing matching works...");
+		System.out.println();
 		for(Work work: works){
 			String workTitle = work.getTitle();
 			if(workTitle.contains(toMatch)){
@@ -248,10 +251,11 @@ class Bookshelf implements HasMenu, Serializable {
 	
 	public void searchByAuthor(){
 		Scanner input = new Scanner(System.in);
-                System.out.println("Enter author name: ");
+                System.out.print("Enter author name: ");
                 String toMatch = input.nextLine();
 		System.out.println("Showing matching works...");
-                for(Work work: works){
+                System.out.println();
+		for(Work work: works){
                         String workAuthor = work.getAuthor();
                         if(workAuthor.contains(toMatch)){
                                 work.printWork();
@@ -272,7 +276,7 @@ class Bookshelf implements HasMenu, Serializable {
 				intVal = Integer.parseInt(value);
 				match = true;
 			}catch(NumberFormatException e){
-				System.out.println("Please input a numeric answer: ");
+				System.out.print("Please input a numeric answer: ");
 			}// end try
 			if(match){
 				keepGoing = false;

@@ -77,14 +77,14 @@ public class Work implements HasMenu, Serializable {
 				String newTitle = input.nextLine();
 				this.setTitle(newTitle);
 				System.out.println();
-				System.out.println("Title changed to: " + newTitle);
+				System.out.println("---> Title changed to: " + newTitle);
 			} else if(userChoice.equals("2")){
 				System.out.println("Current author: " + this.getAuthor());
                                 System.out.print("Enter new author: ");
 				String newAuthor = input.nextLine();
                                 this.setAuthor(newAuthor);
 				System.out.println();
-				System.out.println("Author changed to: " + newAuthor);
+				System.out.println("---> Author changed to: " + newAuthor);
 			} else if(userChoice.equals("3")){
 				if(type == 1){
 					System.out.println("Current word length: " + this.getWordLength());
@@ -92,14 +92,14 @@ public class Work implements HasMenu, Serializable {
                                         int intWords = getInt();
 					this.setWordLength(intWords);
 					System.out.println();
-					System.out.println("Word length changed to: " + intWords);
+					System.out.println("---> Word length changed to: " + intWords);
 				} else {
 					System.out.println("Current page length: " + this.getPageLength());
                                         System.out.print("Enter new page length: ");
                                         double dPages = getDouble();
 					this.setPageLength(dPages);
 					System.out.println();
-					System.out.println("Page length changed to: " + dPages);
+					System.out.println("---> Page length changed to: " + dPages);
 				}// end if else
 				this.convertLength();
 			} else if(userChoice.equals("4")){
@@ -107,7 +107,7 @@ public class Work implements HasMenu, Serializable {
                                 System.out.print("Enter new genre: ");
 				String newGenre = input.nextLine();
 				System.out.println();
-				System.out.println("Genre changed to: " + newGenre);
+				System.out.println("---> Genre changed to: " + newGenre);
                                 this.setGenre(newGenre);
 			} else if(userChoice.equals("5")){
 				String dateAsString = this.df.format(this.dateFinished);
@@ -123,20 +123,20 @@ public class Work implements HasMenu, Serializable {
 				// maybe change to something so that that date doesnt reset unless all 3 values are valid integers
 				this.setDateFinished(day, month, year);
 				dateAsString = this.df.format(this.dateFinished);
-                		System.out.println("Date Finished: " + dateAsString);
+                		System.out.println("---> Date Finished changed to: " + dateAsString);
 			} else if(userChoice.equals("6")){
 				System.out.println("Current note: " + note.getContent());
 				System.out.print("Enter new note: ");
 				String newNote = input.nextLine();
 				this.note.setContent(newNote);
 				System.out.println();
-				System.out.println("Note added...");
+				System.out.println("---> Note successfully changed.");
 			} else if(userChoice.equals("7")){
 				System.out.println("Current rating: " + this.getRating());
                                 System.out.print("Enter new rating (-5 to 5): ");
                                 String newRating = input.nextLine();
 				System.out.println();
-				System.out.println("Rating changed to: " + newRating);
+				System.out.println("---> Rating changed to: " + newRating);
                                 this.setRating(newRating);
 				// do i want to add a safeguard to check if int between -5 and 5????
 			} else if(this.type == 1){
@@ -146,14 +146,15 @@ public class Work implements HasMenu, Serializable {
                                 	String newFandom = input.nextLine();
                                 	this.setFandom(newFandom);
 					System.out.println();
-					System.out.println("Fandom changed to: " + newFandom);
+					System.out.println("---> Fandom changed to: " + newFandom);
 				} else if(userChoice.equals("9")){
 					System.out.println("Current ship: " + this.getShip());
                                 	System.out.print("Enter new ship: ");
                                 	String newGenre = input.nextLine();
                                 	this.setGenre(newGenre);
 					System.out.println();
-					System.out.println("Ship changed to: " + newGenre);
+					System.out.println("---> Ship changed to: " + newGenre);
+				}// end if else
 			} else{
 				System.out.println("Not a valid input. Please enter one of the choices.");
 			}// end if else
