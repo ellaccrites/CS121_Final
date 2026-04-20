@@ -22,8 +22,7 @@ public class Work implements HasMenu, Serializable {
 	}// end main
 	
 	public Work(){
-		this.dateFinished = Calender.getInstance().getTime();
-		this.dateFinished.set(0, 0, 0);
+		this.dateFinished = new Date();
 		this.note = new Note();
 		this.wordLength = 0;
 		this.pageLength = 0;
@@ -35,12 +34,12 @@ public class Work implements HasMenu, Serializable {
 		this.type = type;
 		this.title = title;
 		this.author = author;
-		this.dateFinished = Calendar.getInstance().getTime();
-		this.dateFinished.set(0, 0, 0);
+		this.dateFinished = new Date();
                 this.note = new Note();
 	}// end constructor
 
 	public String menu(){
+		System.out.println("-- Work Menu --");
 		System.out.println("0) Exit editing menu");
 		System.out.println("1) Edit title");
 		System.out.println("2) Edit author");
@@ -49,9 +48,14 @@ public class Work implements HasMenu, Serializable {
 		System.out.println("5) Edit date finished");
 		System.out.println("6) Add or edit note");
 		System.out.println("7) Add or edit rating");
-		System.out.println("8) Edit fandom");
-		System.out.println("9) Edit ship");
-		System.out.print("Enter a number 0-9: ");
+		
+		if(this.type == 1){
+			System.out.println("8) Edit fandom");
+			System.out.println("9) Edit ship");
+			System.out.print("Enter a number 0-9: ");
+		} else{
+			System.out.print("Enter a number 0-7: ");
+		}// end if
 		Scanner input = new Scanner(System.in);
 		String userChoice = input.nextLine();
 
@@ -72,12 +76,14 @@ public class Work implements HasMenu, Serializable {
 				System.out.print("Enter new title: ");
 				String newTitle = input.nextLine();
 				this.setTitle(newTitle);
+				System.out.println();
 				System.out.println("Title changed to: " + newTitle);
 			} else if(userChoice.equals("2")){
 				System.out.println("Current author: " + this.getAuthor());
                                 System.out.print("Enter new author: ");
 				String newAuthor = input.nextLine();
                                 this.setAuthor(newAuthor);
+				System.out.println();
 				System.out.println("Author changed to: " + newAuthor);
 			} else if(userChoice.equals("3")){
 				if(type == 1){
@@ -85,12 +91,14 @@ public class Work implements HasMenu, Serializable {
                                         System.out.print("Enter new word length: ");
                                         int intWords = getInt();
 					this.setWordLength(intWords);
+					System.out.println();
 					System.out.println("Word length changed to: " + intWords);
 				} else {
 					System.out.println("Current page length: " + this.getPageLength());
                                         System.out.print("Enter new page length: ");
                                         double dPages = getDouble();
 					this.setPageLength(dPages);
+					System.out.println();
 					System.out.println("Page length changed to: " + dPages);
 				}// end if else
 				this.convertLength();
@@ -98,47 +106,56 @@ public class Work implements HasMenu, Serializable {
 				System.out.println("Current genre: " + this.getGenre());
                                 System.out.print("Enter new genre: ");
 				String newGenre = input.nextLine();
+				System.out.println();
 				System.out.println("Genre changed to: " + newGenre);
                                 this.setGenre(newGenre);
 			} else if(userChoice.equals("5")){
+				String dateAsString = this.df.format(this.dateFinished);
+                                System.out.println("Date Finished: " + dateAsString);
 				System.out.println("Current date finished: " + this.dateFinished.toString());
 				System.out.println("Enter the following information as their numeric values.");
 				System.out.print("Enter new year: ");
 				int year = getInt();
 				System.out.print("Enter new month: ");
-				int month = getInt();
+				int month = getInt() - 1;
 				System.out.print("Enter new day: ");
 				int day = getInt();
 				// maybe change to something so that that date doesnt reset unless all 3 values are valid integers
-				this.dateFinished.set(year, month, day);
-
+				this.setDateFinished(day, month, year);
+				dateAsString = this.df.format(this.dateFinished);
+                		System.out.println("Date Finished: " + dateAsString);
 			} else if(userChoice.equals("6")){
 				System.out.println("Current note: " + note.getContent());
 				System.out.print("Enter new note: ");
 				String newNote = input.nextLine();
 				this.note.setContent(newNote);
+				System.out.println();
 				System.out.println("Note added...");
 			} else if(userChoice.equals("7")){
 				System.out.println("Current rating: " + this.getRating());
                                 System.out.print("Enter new rating (-5 to 5): ");
                                 String newRating = input.nextLine();
+				System.out.println();
 				System.out.println("Rating changed to: " + newRating);
                                 this.setRating(newRating);
 				// do i want to add a safeguard to check if int between -5 and 5????
-			} else if(userChoice.equals("8")){
-				System.out.println("Current fandom: " + this.getFandom());
-                                System.out.print("Enter new fandom: ");
-                                String newFandom = input.nextLine();
-                                this.setFandom(newFandom);
-				System.out.println("Fandom changed to: " + newFandom);
-			} else if(userChoice.equals("9")){
-				System.out.println("Current ship: " + this.getShip());
-                                System.out.print("Enter new ship: ");
-                                String newGenre = input.nextLine();
-                                this.setGenre(newGenre);
-				System.out.println("Ship changed to: " + newGenre);
+			} else if(this.type == 1){
+				if(userChoice.equals("8")){
+					System.out.println("Current fandom: " + this.getFandom());
+                                	System.out.print("Enter new fandom: ");
+                                	String newFandom = input.nextLine();
+                                	this.setFandom(newFandom);
+					System.out.println();
+					System.out.println("Fandom changed to: " + newFandom);
+				} else if(userChoice.equals("9")){
+					System.out.println("Current ship: " + this.getShip());
+                                	System.out.print("Enter new ship: ");
+                                	String newGenre = input.nextLine();
+                                	this.setGenre(newGenre);
+					System.out.println();
+					System.out.println("Ship changed to: " + newGenre);
 			} else{
-				System.out.println("Not a valid input. Please enter 0-9.");
+				System.out.println("Not a valid input. Please enter one of the choices.");
 			}// end if else
 			System.out.println();
 		}// end while
@@ -239,6 +256,11 @@ public class Work implements HasMenu, Serializable {
 		}// end if else
 		return sType;
 	}// end getStringType
+	
+	public void setDateFinished(int day, int month, int year){
+		Date newDate = new GregorianCalendar(year, month, day).getTime();
+		this.dateFinished = newDate;
+	}// end setDateFinished
 	
 	public void setRating(String rating){
 		this.rating = rating;

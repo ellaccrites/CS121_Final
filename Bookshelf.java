@@ -102,7 +102,7 @@ class Bookshelf implements HasMenu, Serializable {
 	public void addWork(){
 		Scanner input = new Scanner(System.in);
                 System.out.println("Please enter the following information: ");
-		System.out.println("Work type (0 for Book, 1 for Fanfic, 2 for Manga): ");
+		System.out.print("Work type (0 for Book, 1 for Fanfic, 2 for Manga): ");
 		boolean keepGoing = true;
 		int type = 0;
 		while(keepGoing){
@@ -121,25 +121,25 @@ class Bookshelf implements HasMenu, Serializable {
 			}// end if else
 		}// end while
 
-		System.out.println("Title: ");
+		System.out.print("Title: ");
 		String title = input.nextLine();
-		System.out.println("Author: ");
+		System.out.print("Author: ");
 		String author = input.nextLine();
 		
 		Work w = new Work(type, title, author);
 
 		if(w.getType() == 1){
-			System.out.println("Word Length: ");
+			System.out.print("Word Length: ");
 			int wordlength = getInt();
 			w.setWordLength(wordlength);
-			System.out.println("Fandom: ");
+			System.out.print("Fandom: ");
                 	String fandom  = input.nextLine();
 			w.setFandom(fandom);
-                	System.out.println("Ship: ");
+                	System.out.print("Ship: ");
                 	String ship  = input.nextLine();
 			w.setShip(ship);
 		} else{
-			System.out.println("Page Length: ");
+			System.out.print("Page Length: ");
 			double pageLength = getDouble();
 			w.setPageLength(pageLength);
 			w.setFandom("n/a");
@@ -147,27 +147,27 @@ class Bookshelf implements HasMenu, Serializable {
 		}// end if else
 		w.convertLength();
 		
-		System.out.println("Genre: ");
+		System.out.print("Genre: ");
 		String genre = input.nextLine();
 		w.setGenre(genre);
 		
-		System.out.println("Date Finished: ");
+		System.out.print("Date Finished: ");
 		System.out.print("Enter the following information as their numeric values: ");
 		System.out.print("     Year: ");
 		int year = getInt();
 		System.out.print("     Month: ");	
-		int month = getInt();
+		int month = getInt() - 1;
 		System.out.print("     Day: ");
 		int day = getInt();
 		try{
-			w.dateFinished.set(year, month, day);
+			w.setDateFinished(year, month, day);
 		} catch(Exception e){
-			System.out.println("Not valid inputs. Date set to 0/00/0000. You can edit date finished in the work menu.");
+			System.out.println("Not valid inputs. Date set to current time. You can edit date finished in the work menu.");
 		}// end try catch
 		
-		System.out.println("Rating: ");
+		System.out.print("Rating: ");
 		String rating  = input.nextLine();
-		System.out.println("Notes: ");
+		System.out.print("Notes: ");
 		String noteContent = input.nextLine();
 		w.note.setContent(noteContent);
 
@@ -250,7 +250,7 @@ class Bookshelf implements HasMenu, Serializable {
 		Scanner input = new Scanner(System.in);
                 System.out.println("Enter author name: ");
                 String toMatch = input.nextLine();
-		ystem.out.println("Showing matching works...");
+		System.out.println("Showing matching works...");
                 for(Work work: works){
                         String workAuthor = work.getAuthor();
                         if(workAuthor.contains(toMatch)){
