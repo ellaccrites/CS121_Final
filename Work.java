@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 import java.text.*;
 
-public class Work implements HasMenu, Serializable {
+public class Work implements HasMenu, Converter, Serializable {
 	String title;
 	String author;
 	int wordLength;
@@ -89,14 +89,14 @@ public class Work implements HasMenu, Serializable {
 				if(type == 1){
 					System.out.println("Current word length: " + this.getWordLength());
                                         System.out.print("Enter new word length: ");
-                                        int intWords = getInt();
+                                        int intWords = this.getInt();
 					this.setWordLength(intWords);
 					System.out.println();
 					System.out.println("---> Word length changed to: " + intWords);
 				} else {
 					System.out.println("Current page length: " + this.getPageLength());
                                         System.out.print("Enter new page length: ");
-                                        double dPages = getDouble();
+                                        double dPages = this.getDouble();
 					this.setPageLength(dPages);
 					System.out.println();
 					System.out.println("---> Page length changed to: " + dPages);
@@ -111,15 +111,14 @@ public class Work implements HasMenu, Serializable {
                                 this.setGenre(newGenre);
 			} else if(userChoice.equals("5")){
 				String dateAsString = this.df.format(this.dateFinished);
-                                System.out.println("Date Finished: " + dateAsString);
-				System.out.println("Current date finished: " + this.dateFinished.toString());
+                                System.out.println("Curent date finished: " + dateAsString);
 				System.out.println("Enter the following information as their numeric values.");
 				System.out.print("Enter new year: ");
-				int year = getInt();
+				int year = this.getInt();
 				System.out.print("Enter new month: ");
-				int month = getInt() - 1;
+				int month = this.getInt() - 1;
 				System.out.print("Enter new day: ");
-				int day = getInt();
+				int day = this.getInt();
 				// maybe change to something so that that date doesnt reset unless all 3 values are valid integers
 				this.setDateFinished(day, month, year);
 				dateAsString = this.df.format(this.dateFinished);
@@ -134,11 +133,24 @@ public class Work implements HasMenu, Serializable {
 			} else if(userChoice.equals("7")){
 				System.out.println("Current rating: " + this.getRating());
                                 System.out.print("Enter new rating (-5 to 5): ");
-                                int newRating = getInt();
+                                boolean keepGoing2 = true;
+				int newRating = 0;
+				while(keepGoing2){
+					newRating = this.getInt();
+					if(-5 <= newRating){
+						if(newRating <= 5){
+							keepGoing2 = false;
+						} else{
+							System.out.println("Please input a value between from -5 to 5: ");	
+						}//end if
+					} else{
+						System.out.println("Please input a value between from -5 to 5: ");
+					}//end if else
+				}// end while
+
 				System.out.println();
 				System.out.println("---> Rating changed to: " + newRating);
                                 this.setRating(newRating);
-				// do i want to add a safeguard to check if int between -5 and 5????
 			} else if(this.type == 1){
 				if(userChoice.equals("8")){
 					System.out.println("Current fandom: " + this.getFandom());
@@ -295,43 +307,5 @@ public class Work implements HasMenu, Serializable {
 		return this.ship;
 	}// end getter
 	
-	public int getInt(){
-                boolean keepGoing = true;
-                int intVal = 0;
-                while(keepGoing){
-                        Scanner input = new Scanner(System.in);
-                        String value = input.nextLine();
-                        boolean match = false;
-                        try{
-                                intVal = Integer.parseInt(value);
-                                match = true;
-                        }catch(NumberFormatException e){
-                                System.out.print("Please input a numeric answer: ");
-                        }// end try
-                        if(match){
-                                keepGoing = false;
-                        }// end if
-                }// end while
-                return intVal;
-        }// end getInt
-
-        public double getDouble(){
-                boolean keepGoing = true;
-                double doubleAmount = 0d;
-                while(keepGoing){
-                        Scanner input = new Scanner(System.in);
-                        String amount = input.nextLine();
-
-                        try{
-                                doubleAmount = Double.parseDouble(amount);
-                        }catch(NumberFormatException e){
-                                System.out.println("Please input a numeric answer: ");
-                        }// end try
-                        if(doubleAmount != 0d){
-                                keepGoing = false;
-                        }// end if
-                }// end while
-                return doubleAmount;
-        }// end get double	
 }// end work
 

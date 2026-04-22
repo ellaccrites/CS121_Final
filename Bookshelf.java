@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-class Bookshelf implements HasMenu, Serializable {
+class Bookshelf implements HasMenu, Converter, Serializable {
 	WorkList works = new WorkList();
 
 	public static void main(String[] args){
@@ -107,7 +107,7 @@ class Bookshelf implements HasMenu, Serializable {
 		boolean keepGoing = true;
 		int type = 0;
 		while(keepGoing){
-			int testType = getInt();
+			int testType = this.getInt();
 			if(testType == 0){
 				type = 0;
 				keepGoing = false;
@@ -131,7 +131,7 @@ class Bookshelf implements HasMenu, Serializable {
 
 		if(w.getType() == 1){
 			System.out.print("Word Length: ");
-			int wordlength = getInt();
+			int wordlength = this.getInt();
 			w.setWordLength(wordlength);
 			System.out.print("Fandom: ");
                 	String fandom  = input.nextLine();
@@ -141,7 +141,7 @@ class Bookshelf implements HasMenu, Serializable {
 			w.setShip(ship);
 		} else{
 			System.out.print("Page Length: ");
-			double pageLength = getDouble();
+			double pageLength = this.getDouble();
 			w.setPageLength(pageLength);
 			w.setFandom("n/a");
 			w.setShip("n/a");
@@ -155,9 +155,9 @@ class Bookshelf implements HasMenu, Serializable {
 		System.out.println("Date Finished-- ");
 		System.out.println("Enter the following information as their numeric values. ");
 		System.out.print("     Year: ");
-		int year = getInt();
+		int year = this.getInt();
 		System.out.print("     Month: ");	
-		int month = getInt() - 1;
+		int month = this.getInt() - 1;
 		System.out.print("     Day: ");
 		int day = getInt();
 		try{
@@ -167,15 +167,30 @@ class Bookshelf implements HasMenu, Serializable {
 		}// end try catch
 		
 		System.out.print("Rating (-5 to 5): ");
-		int rating  = getInt();
+		boolean keepGoing2 = true;
+		int rating = 0;
+                while(keepGoing2){
+                	rating = this.getInt();
+                	if(-5 <= rating){
+                        	if(rating <= 5){
+                                	keepGoing2 = false;
+				} else{
+					System.out.println("Please input a value between from -5 to 5: ");
+                                }//end if else
+			} else{
+				System.out.println("Please input a value between from -5 to 5: ");
+			}//end if else
+		}// end while
+		
 		w.setRating(rating);
 		System.out.print("Notes: ");
 		String noteContent = input.nextLine();
 		w.note.setContent(noteContent);
 
 		works.add(w);
-
+		System.out.println();
 		System.out.println("Work added!");
+		System.out.println();
 		System.out.println("Entered work: ");
 		w.printWork();
 	}// end addWork
@@ -255,8 +270,9 @@ class Bookshelf implements HasMenu, Serializable {
 		if(match == false){
                         System.out.println("No matches found.");
                 }// end if
-
-		System.out.println("To change work information, choose edit work in the Bookshelf menu.");
+		System.out.println();
+		System.out.println("To see a list of all works, choose 'Print all works' in the Bookshelf menu.");
+		System.out.println("To change work information, choose 'Edit work' in the Bookshelf menu.");
 	}// end searchByTitle
 	
 	public void searchByAuthor(){
@@ -277,49 +293,10 @@ class Bookshelf implements HasMenu, Serializable {
 		if(match == false){
 			System.out.println("No matches found.");
 		}// end if
-                
-		System.out.println("To change work information, choose edit work in Bookshelf menu.");
+        	System.out.println();
+                System.out.println("To see a list of all works, choose 'Print all works' in the Bookshelf menu.");
+                System.out.println("To change work information, choose 'Edit work' in the Bookshelf menu.");        
 	}// end searchByAuthor
-	
-	//FIGURE OUT HOW TO DEAL WITH THE TWO OF THE SAME FUNCTION 
-	public int getInt(){
-		boolean keepGoing = true;
-		int intVal = 0;
-		while(keepGoing){
-			Scanner input = new Scanner(System.in);
-			String value = input.nextLine();
-			boolean match = false;
-			try{
-				intVal = Integer.parseInt(value);
-				match = true;
-			}catch(NumberFormatException e){
-				System.out.print("Please input a numeric answer: ");
-			}// end try
-			if(match){
-				keepGoing = false;
-			}// end if
-		}// end while
-		return intVal;
-	}// end getInt
-	
-	public double getDouble(){
-		boolean keepGoing = true;
-		double doubleAmount = 0d;
-		while(keepGoing){
-			Scanner input = new Scanner(System.in);
-			String amount = input.nextLine();
-
-			try{
-				doubleAmount = Double.parseDouble(amount);
-			}catch(NumberFormatException e){
-				System.out.println("Please input a numeric answer: ");
-			}// end try
-			if(doubleAmount != 0d){
-				keepGoing = false;
-			}// end if
-		}// end while
-		return doubleAmount;
-	}// end get double
 	
 }// end class
 
