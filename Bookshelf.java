@@ -5,7 +5,7 @@ class Bookshelf implements HasMenu, Serializable {
 	WorkList works = new WorkList();
 
 	public static void main(String[] args){
-		Bookshelf b = new Bookshelf();
+		new Bookshelf();
 	}// end main
 	
 	public Bookshelf(){
@@ -166,14 +166,18 @@ class Bookshelf implements HasMenu, Serializable {
 			System.out.println("Not valid inputs. Date set to current time. You can edit date finished in the work menu.");
 		}// end try catch
 		
-		System.out.print("Rating: ");
-		String rating  = input.nextLine();
+		System.out.print("Rating (-5 to 5): ");
+		int rating  = getInt();
+		w.setRating(rating);
 		System.out.print("Notes: ");
 		String noteContent = input.nextLine();
 		w.note.setContent(noteContent);
 
-		w.printWork();
 		works.add(w);
+
+		System.out.println("Work added!");
+		System.out.println("Entered work: ");
+		w.printWork();
 	}// end addWork
 	
 	public void printAll(){
@@ -231,7 +235,6 @@ class Bookshelf implements HasMenu, Serializable {
                 if(match == false){
 			System.out.println("No match found. You can find a list of all works in the Bookshelf menu.");
 		}// end if
-		System.out.println("To change work information, chose edit work in Bookshelf menu.");
 	}// end updateWork
 	
 	public void searchByTitle(){
@@ -240,13 +243,20 @@ class Bookshelf implements HasMenu, Serializable {
 		String toMatch = input.nextLine();
 		System.out.println("Showing matching works...");
 		System.out.println();
+		boolean match = false;
 		for(Work work: works){
 			String workTitle = work.getTitle();
 			if(workTitle.contains(toMatch)){
 				work.printWork();
+				match = true;
 			}// end if
 		}// end for
-		System.out.println("To change work information, chose edit work in the Bookshelf menu.");
+		
+		if(match == false){
+                        System.out.println("No matches found.");
+                }// end if
+
+		System.out.println("To change work information, choose edit work in the Bookshelf menu.");
 	}// end searchByTitle
 	
 	public void searchByAuthor(){
@@ -255,13 +265,20 @@ class Bookshelf implements HasMenu, Serializable {
                 String toMatch = input.nextLine();
 		System.out.println("Showing matching works...");
                 System.out.println();
+		boolean match = false;
 		for(Work work: works){
                         String workAuthor = work.getAuthor();
                         if(workAuthor.contains(toMatch)){
                                 work.printWork();
+				match = true;
                         }// end if
                 }// end for
-                System.out.println("To change work information, chose edit work in Bookshelf menu.");
+		
+		if(match == false){
+			System.out.println("No matches found.");
+		}// end if
+                
+		System.out.println("To change work information, choose edit work in Bookshelf menu.");
 	}// end searchByAuthor
 	
 	//FIGURE OUT HOW TO DEAL WITH THE TWO OF THE SAME FUNCTION 

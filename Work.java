@@ -14,7 +14,7 @@ public class Work implements HasMenu, Serializable {
 	Date dateFinished;
 	DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 	Note note;
-	String rating;
+	int rating;
 
 	public static void main(String[] args){
 		Work w = new Work();
@@ -46,8 +46,8 @@ public class Work implements HasMenu, Serializable {
 		System.out.println("3) Edit length");
 		System.out.println("4) Edit genre");
 		System.out.println("5) Edit date finished");
-		System.out.println("6) Add or edit note");
-		System.out.println("7) Add or edit rating");
+		System.out.println("6) Edit note");
+		System.out.println("7) Edit rating");
 		
 		if(this.type == 1){
 			System.out.println("8) Edit fandom");
@@ -134,7 +134,7 @@ public class Work implements HasMenu, Serializable {
 			} else if(userChoice.equals("7")){
 				System.out.println("Current rating: " + this.getRating());
                                 System.out.print("Enter new rating (-5 to 5): ");
-                                String newRating = input.nextLine();
+                                int newRating = getInt();
 				System.out.println();
 				System.out.println("---> Rating changed to: " + newRating);
                                 this.setRating(newRating);
@@ -263,12 +263,11 @@ public class Work implements HasMenu, Serializable {
 		this.dateFinished = newDate;
 	}// end setDateFinished
 	
-	public void setRating(String rating){
+	public void setRating(int rating){
 		this.rating = rating;
-		// maybe want to switch this to integer??
 	}// end setter
 	
-	public String getRating(){
+	public int getRating(){
 		return this.rating;
 	}// end getter
 	
@@ -297,30 +296,42 @@ public class Work implements HasMenu, Serializable {
 	}// end getter
 	
 	public int getInt(){
-		Scanner input = new Scanner(System.in);
-		String value = input.nextLine();
-		
-		int intVal = 0;
-		try{
-			intVal = Integer.parseInt(value);
-		}catch(NumberFormatException e){
-			System.out.println("Please input a number.");
-		}// end try
-		return intVal;
-	}// end getInt
-	
-	public double getDouble(){
-		Scanner input = new Scanner(System.in);
-		String amount = input.nextLine();
+                boolean keepGoing = true;
+                int intVal = 0;
+                while(keepGoing){
+                        Scanner input = new Scanner(System.in);
+                        String value = input.nextLine();
+                        boolean match = false;
+                        try{
+                                intVal = Integer.parseInt(value);
+                                match = true;
+                        }catch(NumberFormatException e){
+                                System.out.print("Please input a numeric answer: ");
+                        }// end try
+                        if(match){
+                                keepGoing = false;
+                        }// end if
+                }// end while
+                return intVal;
+        }// end getInt
 
-		double doubleAmount = 0d;
-		try{
-			doubleAmount = Double.parseDouble(amount);
-		}catch(NumberFormatException e){
-			System.out.println("Please input a number.");
-		}// end try
-		return doubleAmount;
-	}// end get double
-	
+        public double getDouble(){
+                boolean keepGoing = true;
+                double doubleAmount = 0d;
+                while(keepGoing){
+                        Scanner input = new Scanner(System.in);
+                        String amount = input.nextLine();
+
+                        try{
+                                doubleAmount = Double.parseDouble(amount);
+                        }catch(NumberFormatException e){
+                                System.out.println("Please input a numeric answer: ");
+                        }// end try
+                        if(doubleAmount != 0d){
+                                keepGoing = false;
+                        }// end if
+                }// end while
+                return doubleAmount;
+        }// end get double	
 }// end work
 
