@@ -13,12 +13,6 @@ Day(int day, int month, int year):
     month = month
     year = year
 
-getStringDate():
-    ArrayList<string> months = ["January, February, ... , December]
-    int matchMonth = month - 1
-    string stringMonth = months(matchMonth)
-    String stringDate = monthString + " " + getDay() + ", " + getYear()
-    returns stringDate
 ```
 
 # Note

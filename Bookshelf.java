@@ -9,8 +9,8 @@ class Bookshelf implements HasMenu, Converter, Serializable {
 	}// end main
 	
 	public Bookshelf(){
-		this.loadSampleWorks();
-		this.saveWorks();
+		//this.loadSampleWorks();
+		//this.saveWorks();
 
 		this.loadWorks();
 		this.start();
