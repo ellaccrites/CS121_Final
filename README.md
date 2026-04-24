@@ -1,7 +1,7 @@
 # CS121_Final
 ## UML
 ```
-![image]("C:\Users\ellac\Pictures\Screenshots\Screenshot 2026-04-23 150418.png")
+![image](Screenshot 2026-04-23 150418.png)
 ```
 
 ## Algorithm
