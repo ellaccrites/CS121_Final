@@ -1,8 +1,6 @@
 # CS121_Final
 ## UML
-```
-![image](Screenshot 2026-04-23 150418.png)
-```
+Included in UML.png attached file.
 
 ## Algorithm
 # Date
