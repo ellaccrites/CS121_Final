@@ -66,20 +66,19 @@ public class Work implements HasMenu, Converter, Serializable {
 	public void start(){
 		boolean keepGoing = true;
 		while(keepGoing){
+			this.printWork();
 			String userChoice = this.menu();
 			Scanner input = new Scanner(System.in);
 			if(userChoice.equals("0")){
 				System.out.println("Exiting Work menu...");
 				keepGoing = false;
 			} else if(userChoice.equals("1")){
-				System.out.println("Current title: " + this.getTitle());
 				System.out.print("Enter new title: ");
 				String newTitle = input.nextLine();
 				this.setTitle(newTitle);
 				System.out.println();
 				System.out.println("---> Title changed to: " + newTitle);
 			} else if(userChoice.equals("2")){
-				System.out.println("Current author: " + this.getAuthor());
                                 System.out.print("Enter new author: ");
 				String newAuthor = input.nextLine();
                                 this.setAuthor(newAuthor);
@@ -87,14 +86,12 @@ public class Work implements HasMenu, Converter, Serializable {
 				System.out.println("---> Author changed to: " + newAuthor);
 			} else if(userChoice.equals("3")){
 				if(type == 1){
-					System.out.println("Current word length: " + this.getWordLength());
                                         System.out.print("Enter new word length: ");
                                         int intWords = this.getInt();
 					this.setWordLength(intWords);
 					System.out.println();
 					System.out.println("---> Word length changed to: " + intWords);
 				} else {
-					System.out.println("Current page length: " + this.getPageLength());
                                         System.out.print("Enter new page length: ");
                                         double dPages = this.getDouble();
 					this.setPageLength(dPages);
@@ -103,7 +100,6 @@ public class Work implements HasMenu, Converter, Serializable {
 				}// end if else
 				this.convertLength();
 			} else if(userChoice.equals("4")){
-				System.out.println("Current genre: " + this.getGenre());
                                 System.out.print("Enter new genre: ");
 				String newGenre = input.nextLine();
 				System.out.println();
@@ -111,7 +107,6 @@ public class Work implements HasMenu, Converter, Serializable {
                                 this.setGenre(newGenre);
 			} else if(userChoice.equals("5")){
 				String dateAsString = this.df.format(this.dateFinished);
-                                System.out.println("Curent date finished: " + dateAsString);
 				System.out.println("Enter the following information as their numeric values.");
 				System.out.print("Enter new year: ");
 				int year = this.getInt();
@@ -124,14 +119,12 @@ public class Work implements HasMenu, Converter, Serializable {
 				dateAsString = this.df.format(this.dateFinished);
                 		System.out.println("---> Date Finished changed to: " + dateAsString);
 			} else if(userChoice.equals("6")){
-				System.out.println("Current note: " + note.getContent());
 				System.out.print("Enter new note: ");
 				String newNote = input.nextLine();
 				this.note.setContent(newNote);
 				System.out.println();
 				System.out.println("---> Note successfully changed.");
 			} else if(userChoice.equals("7")){
-				System.out.println("Current rating: " + this.getRating());
                                 System.out.print("Enter new rating (-5 to 5): ");
                                 boolean keepGoing2 = true;
 				int newRating = 0;
@@ -153,14 +146,12 @@ public class Work implements HasMenu, Converter, Serializable {
                                 this.setRating(newRating);
 			} else if(this.type == 1){
 				if(userChoice.equals("8")){
-					System.out.println("Current fandom: " + this.getFandom());
                                 	System.out.print("Enter new fandom: ");
                                 	String newFandom = input.nextLine();
                                 	this.setFandom(newFandom);
 					System.out.println();
 					System.out.println("---> Fandom changed to: " + newFandom);
 				} else if(userChoice.equals("9")){
-					System.out.println("Current ship: " + this.getShip());
                                 	System.out.print("Enter new ship: ");
                                 	String newGenre = input.nextLine();
                                 	this.setGenre(newGenre);
