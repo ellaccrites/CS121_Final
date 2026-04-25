@@ -153,10 +153,10 @@ public class Work implements HasMenu, Converter, Serializable {
 					System.out.println("---> Fandom changed to: " + newFandom);
 				} else if(userChoice.equals("9")){
                                 	System.out.print("Enter new ship: ");
-                                	String newGenre = input.nextLine();
-                                	this.setGenre(newGenre);
+                                	String newShip = input.nextLine();
+                                	this.setShip(newShip);
 					System.out.println();
-					System.out.println("---> Ship changed to: " + newGenre);
+					System.out.println("---> Ship changed to: " + newShip);
 				}// end if else
 			} else{
 				System.out.println("Not a valid input. Please enter one of the choices.");
@@ -172,8 +172,10 @@ public class Work implements HasMenu, Converter, Serializable {
 		System.out.println("Page Length: " + this.getPageLength());
 		System.out.println("Type: " + this.getStringType());
 		System.out.println("Genre: " + this.getGenre());
-		System.out.println("Fandom: " + this.getFandom());
-		System.out.println("Ship: " + this.getShip());
+		if(this.type == 1){
+			System.out.println("Fandom: " + this.getFandom());
+			System.out.println("Ship: " + this.getShip());
+		}// end if
 		String dateAsString = this.df.format(this.dateFinished);
 		System.out.println("Date Finished: " + dateAsString);
 		System.out.println("Notes: " + this.note.getContent());
@@ -190,7 +192,7 @@ public class Work implements HasMenu, Converter, Serializable {
 		} else if(this.type == 1){
 			setPageLength(this.wordLength / 300);
 		} else if(this.type == 2){
-			newWords  = 300 * this.pageLength;
+			newWords  = 120 * this.pageLength;
 			int intWords = (int) newWords;
 			setWordLength(intWords);
 		}// end if else
