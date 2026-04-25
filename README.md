@@ -1,6 +1,6 @@
 # CS121_Final
 ## UML
-Included in UML.png attached file.
+Included in UML.png attached file in main folder.
 
 ## Algorithm
 # Date
